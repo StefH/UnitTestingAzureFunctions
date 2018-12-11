@@ -7,9 +7,9 @@ using System.Numerics;
 
 namespace CSharpOddOrEven
 {
-    public static class OddOrEven
+    public static class OddOrEvenHttpTrigger
     {
-        [FunctionName("OddOrEven")]
+        [FunctionName("OddOrEvenHttpTrigger")]
         public static IActionResult Run([HttpTrigger(AuthorizationLevel.Function, "get", "post")]HttpRequest req, ILogger logger)
         {
             logger.LogInformation("Odd or even trigger fired - HTTP");

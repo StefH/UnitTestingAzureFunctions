@@ -1,7 +1,7 @@
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ namespace CSharpOddOrEven.Tests
     public class OddOrEvenQueueTest
     {
         private readonly ITestOutputHelper output;
-        private Mock<MockHttpMessageHandler> mockHttpMessageHandler;
+        private readonly Mock<MockHttpMessageHandler> mockHttpMessageHandler;
         private HttpRequestMessage request;
 
         public OddOrEvenQueueTest(ITestOutputHelper output)
@@ -27,7 +27,7 @@ namespace CSharpOddOrEven.Tests
                 .Returns(
                     new HttpResponseMessage
                     {
-                        StatusCode = System.Net.HttpStatusCode.OK,
+                        StatusCode = HttpStatusCode.OK,
                         Content = null
                     })
                 .Callback<HttpRequestMessage>(request => this.request = request);
@@ -43,9 +43,9 @@ namespace CSharpOddOrEven.Tests
 
             await OddOrEvenQueue.RunAsync(number.ToString(), logger);
 
-            var wasEven = (from l in logger.getLogs()
-                           where l.Equals("Was even")
-                           select l).Any();
+            bool wasEven = (from l in logger.getLogs()
+                            where l.Equals("Was even")
+                            select l).Any();
 
             Assert.True(wasEven);
 
@@ -60,14 +60,13 @@ namespace CSharpOddOrEven.Tests
 
             await OddOrEvenQueue.RunAsync(number.ToString(), logger);
 
-            var wasOdd = (from l in logger.getLogs()
+            bool wasOdd = (from l in logger.getLogs()
                            where l.Equals("Was odd")
                            select l).Any();
 
             Assert.True(wasOdd);
 
             Assert.Equal("Odd", await request.Content.ReadAsStringAsync());
-
         }
 
         [Fact]
@@ -76,10 +75,9 @@ namespace CSharpOddOrEven.Tests
             string nonNumber = "I'm Even";
             FunctionTestLogger logger = new FunctionTestLogger(output);
 
-            Assert.ThrowsAsync<ArgumentException>(async () => 
+            Assert.ThrowsAsync<ArgumentException>(async () =>
                 await OddOrEvenQueue.RunAsync(nonNumber, logger)
             );
-
         }
     }
 }

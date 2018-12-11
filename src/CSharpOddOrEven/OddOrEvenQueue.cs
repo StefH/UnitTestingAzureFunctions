@@ -12,9 +12,7 @@ namespace CSharpOddOrEven
         public static HttpClient client = new HttpClient();
 
         [FunctionName("OddOrEvenQueue")]
-        public static async Task RunAsync(
-            [QueueTrigger("numbers", Connection = "AzureWebJobsStorage")]string myNumber, 
-            ILogger log)
+        public static async Task RunAsync([QueueTrigger("numbers", Connection = "AzureWebJobsStorage")]string myNumber, ILogger log)
         {
             log.LogInformation($"Odd or even trigger fired - Queue");
 
