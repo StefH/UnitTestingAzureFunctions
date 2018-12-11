@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
-namespace CSharpOddOrEven
+namespace CSharpOddOrEvenHttpTrigger
 {
     public static class OddOrEvenQueue
     {
@@ -14,7 +14,7 @@ namespace CSharpOddOrEven
         [FunctionName("OddOrEvenQueue")]
         public static async Task RunAsync([QueueTrigger("numbers", Connection = "AzureWebJobsStorage")]string myNumber, ILogger log)
         {
-            log.LogInformation($"Odd or even trigger fired - Queue");
+            log.LogInformation("Odd or even trigger fired - Queue");
 
             if (BigInteger.TryParse(myNumber, out BigInteger number))
             {

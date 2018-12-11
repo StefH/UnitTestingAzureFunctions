@@ -1,10 +1,11 @@
-﻿using System;
-using CSharpOddOrEvenHttpTrigger;
+﻿using CSharpOddOrEvenHttpTrigger;
+using Infrastructure.GitHub.Extensions;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
 [assembly: WebJobsStartup(typeof(Startup))]
@@ -30,8 +31,10 @@ namespace CSharpOddOrEvenHttpTrigger
             services.AddSingleton<ISingletonGreeter, Greeter>();
 
             // Important: We need to call CreateFunctionUserCategory, otherwise our log entries might be filtered out.
-            services.AddSingleton<ILogger>(_ => _loggerFactory.CreateLogger(LogCategories.CreateFunctionUserCategory("Common")));
+            services.AddSingleton(_ => _loggerFactory.CreateLogger(LogCategories.CreateFunctionUserCategory("Common")));
             services.AddSingleton<LoggingGreeter>();
+
+            services.AddGitHub();
 
             return services.BuildServiceProvider();
         }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
@@ -10,9 +10,7 @@
     <PackageReference Include="Willezone.Azure.WebJobs.Extensions.DependencyInjection" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Configuration.ConfigurationManager">
-      <HintPath>..\..\..\..\..\.nuget\packages\system.configuration.configurationmanager\4.4.0\ref\netstandard2.0\System.Configuration.ConfigurationManager.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Infrastructure.GitHub\Infrastructure.GitHub.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="config.json">

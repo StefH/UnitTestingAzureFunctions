@@ -1,14 +1,15 @@
-using System.Numerics;
+using Infrastructure.GitHub.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using CSharpOddOrEvenHttpTrigger;
+using System.Numerics;
+using System.Threading.Tasks;
 using Willezone.Azure.WebJobs.Extensions.DependencyInjection;
 
-namespace CSharpOddOrEven
+namespace CSharpOddOrEvenHttpTrigger
 {
     public static class OddOrEvenHttpTrigger
     {
@@ -61,9 +62,26 @@ namespace CSharpOddOrEven
             return new OkResult();
         }
 
+        [FunctionName("GitHub")]
+        public static async Task<IActionResult> RunGitHub(
+            [HttpTrigger(AuthorizationLevel.Function, "get")]HttpRequest req,
+            ILogger logger,
+            [Inject]IGitHubClientFactory factory)
+        {
+            logger.LogInformation("RunGitHub fired - HTTP");
+
+            var client = factory.CreateClient();
+            string userid = req.Query.ContainsKey("userid") ? req.Query["userid"].ToString() : "stefh";
+            string result = await client.GetAsync(userid);
+
+            logger.LogInformation("result = " + result);
+
+            return new OkResult();
+        }
+
         public static string GetEnvironmentVariable(string name)
         {
-            return name + ": " + System.Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
+            return name + ": " + Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
         }
     }
 }
