@@ -8,6 +8,7 @@ using Moq;
 using Xunit;
 using System;
 using CSharpOddOrEven.Tests.TestHelpers;
+using CSharpOddOrEvenHttpTrigger;
 
 namespace CSharpOddOrEven.Tests
 {
@@ -15,6 +16,9 @@ namespace CSharpOddOrEven.Tests
     {
         private readonly Mock<ILogger> _loggerMock;
         private readonly Mock<HttpRequest> _httpRequestMock;
+        private readonly Mock<ITransientGreeter> _greeterTransientMock;
+        private readonly Mock<IScopedGreeter> _greeterScopedMock;
+        private readonly Mock<ISingletonGreeter> _greeterSingletonMock;
 
         public OddOrEvenTests()
         {
@@ -24,6 +28,15 @@ namespace CSharpOddOrEven.Tests
 
             _httpRequestMock = new Mock<HttpRequest>();
             _httpRequestMock.SetupAllProperties();
+
+            _greeterSingletonMock = new Mock<ISingletonGreeter>();
+            _greeterSingletonMock.SetupAllProperties();
+
+            _greeterTransientMock = new Mock<ITransientGreeter>();
+            _greeterTransientMock.SetupAllProperties();
+
+            _greeterScopedMock = new Mock<IScopedGreeter>();
+            _greeterScopedMock.SetupAllProperties();
         }
 
         [Theory]
@@ -34,7 +47,15 @@ namespace CSharpOddOrEven.Tests
             _httpRequestMock.SetupGetQuery(new Dictionary<string, StringValues>() { { "number", number.ToString() } });
 
             // Act
-            var response = OddOrEven.Run(_httpRequestMock.Object, _loggerMock.Object);
+            var response = OddOrEvenHttpTrigger.Run(
+                _httpRequestMock.Object,
+                _greeterTransientMock.Object,
+                _greeterTransientMock.Object,
+                _greeterScopedMock.Object,
+                _greeterScopedMock.Object,
+                _greeterSingletonMock.Object,
+                _greeterSingletonMock.Object,
+                _loggerMock.Object);
 
             // Assert
             Assert.IsType<OkObjectResult>(response);
@@ -53,7 +74,15 @@ namespace CSharpOddOrEven.Tests
             _httpRequestMock.SetupGetQuery(new Dictionary<string, StringValues>() { { "number", number.ToString() } });
 
             // Act
-            var response = OddOrEven.Run(_httpRequestMock.Object, _loggerMock.Object);
+            var response = OddOrEvenHttpTrigger.Run(
+                _httpRequestMock.Object,
+                _greeterTransientMock.Object,
+                _greeterTransientMock.Object,
+                _greeterScopedMock.Object,
+                _greeterScopedMock.Object,
+                _greeterSingletonMock.Object,
+                _greeterSingletonMock.Object,
+                _loggerMock.Object);
 
             // Assert
             Assert.IsType<OkObjectResult>(response);
@@ -71,7 +100,15 @@ namespace CSharpOddOrEven.Tests
             _httpRequestMock.SetupGetQuery(new Dictionary<string, StringValues>() { { "number", "I'm Even" } });
 
             // Act
-            var response = OddOrEven.Run(_httpRequestMock.Object, _loggerMock.Object);
+            var response = OddOrEvenHttpTrigger.Run(
+                _httpRequestMock.Object,
+                _greeterTransientMock.Object,
+                _greeterTransientMock.Object,
+                _greeterScopedMock.Object,
+                _greeterScopedMock.Object,
+                _greeterSingletonMock.Object,
+                _greeterSingletonMock.Object,
+                _loggerMock.Object);
 
             // Assert
             Assert.IsType<BadRequestObjectResult>(response);
