@@ -1,3 +1,4 @@
+using Common;
 using Infrastructure.GitHub.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,19 @@ namespace CSharpOddOrEvenHttpTrigger
             [Inject]ISingletonGreeter singletonGreeter2,
             ILogger logger)
         {
+            string correlationId = Guid.NewGuid().ToString();
+
             logger.LogInformation("Odd or even trigger fired - HTTP");
+            // {EventDescription}, {EntityType}, {EntityId}, {Status}, {CorrelationId}, {CheckPoint}, {Description}
+            logger.LogInformation(new EventId((int)LoggingConstants.EventId.SubmissionSucceeded),
+                LoggingConstants.Template,
+                LoggingConstants.EventId.SubmissionSucceeded.ToString(),
+                LoggingConstants.EntityType.Order.ToString(),
+                "todo",
+                LoggingConstants.Status.Succeeded.ToString(),
+                correlationId,
+                LoggingConstants.CheckPoint.Publisher.ToString(),
+                "");
 
             string numberQueryValue = req.Query["number"];
 

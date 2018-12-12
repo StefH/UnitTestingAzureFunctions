@@ -9,7 +9,7 @@ pool:
 variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  buildProjects: '**/src/**/*.csproj'
+  buildProjects: '**/src/CSharpOddOrEvenHttpTrigger/*.csproj'
 
 - task: DotNetCoreCLI@2
   displayName: Build Release
