@@ -8,7 +8,7 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
-  displayName: Build Release
+  displayName: Build
   inputs:
     command: 'build'
     arguments: /p:Configuration=$(buildConfiguration)
@@ -20,6 +20,17 @@ steps:
     command: 'test'
     arguments: /p:Configuration=$(buildConfiguration)
     projects: $(buildProjects)
+
+- task: DotNetCoreCLI@2
+  displayName: Pack
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
+  inputs:
+    command: pack
+    configuration: 'Release'
+    packagesToPack: $(buildProjects)
+    nobuild: true
+    packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
+    verbosityPack: 'normal'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts
