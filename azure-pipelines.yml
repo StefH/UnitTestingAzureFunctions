@@ -5,6 +5,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   buildProjects: '**/src/CSharpOddOrEvenHttpTrigger/*.csproj'
+  testProjects: '**/test/CSharpOddOrEvent.Tests/*.csproj'
 
 steps:
 - task: DotNetCoreCLI@2
@@ -19,7 +20,7 @@ steps:
   inputs:
     command: 'test'
     arguments: /p:Configuration=$(buildConfiguration)
-    projects: $(buildProjects)
+    projects: $(testProjects)
 
 - task: DotNetCoreCLI@2
   displayName: Pack
