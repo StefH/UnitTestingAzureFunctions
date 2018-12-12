@@ -7,7 +7,7 @@ variables:
   buildProjects: '**/src/CSharpOddOrEvenHttpTrigger/*.csproj'
 
 steps:
- - task: DotNetCoreCLI@2
+- task: DotNetCoreCLI@2
   displayName: Build Release
   inputs:
     command: 'build'
