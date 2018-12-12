@@ -13,7 +13,7 @@ namespace Infrastructure.GitHub.Extensions
 
         public static void AddServices(this IServiceCollection services)
         {
-            // register the IHttpClientFactory and IAuth0ClientFactory
+            // register the HttpClientFactory and GitHubClientFactory
             services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
             services.AddTransient<IGitHubClientFactory, GitHubClientFactory>();
         }

@@ -15,7 +15,7 @@ namespace CSharpOddOrEvenHttpTrigger
     {
         [FunctionName("OddOrEvenHttpTrigger")]
         public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post")]HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get")]HttpRequest req,
             [Inject]ITransientGreeter transientGreeter1,
             [Inject]ITransientGreeter transientGreeter2,
             [Inject]IScopedGreeter scopedGreeter1,
@@ -44,13 +44,11 @@ namespace CSharpOddOrEvenHttpTrigger
 
                 return new OkObjectResult(num);
             }
-            else
-            {
-                string message = $"Unable to parse the query parameter 'number'. Got value: {numberQueryValue}";
-                logger.LogError(message);
 
-                return new BadRequestObjectResult(message);
-            }
+            string message = $"Unable to parse the query parameter 'number'. Got value: {numberQueryValue}";
+            logger.LogError(message);
+
+            return new BadRequestObjectResult(message);
         }
 
         [FunctionName("LoggingGreeter")]
