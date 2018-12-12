@@ -6,8 +6,8 @@ variables:
   buildConfiguration: 'Release'
   buildProjects: '**/src/CSharpOddOrEvenHttpTrigger/*.csproj'
 
-  steps:
-  - task: DotNetCoreCLI@2
+ steps:
+ - task: DotNetCoreCLI@2
   displayName: Build Release
   inputs:
     command: 'build'
