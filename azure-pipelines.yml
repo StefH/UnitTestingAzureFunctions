@@ -27,14 +27,24 @@ steps:
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
     command: pack
-    configuration: 'Release'
+    configuration: $(buildConfiguration)
     packagesToPack: $(buildProjects)
     nobuild: true
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
     verbosityPack: 'normal'
 
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
+  inputs:
+    command: publish
+    configuration: $(buildConfiguration)
+    nobuild: true
+    publishWebProjects: True
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/app'
+
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/app'
