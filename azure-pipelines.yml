@@ -11,14 +11,14 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
-    command: 'build'
+    command: build
     arguments: /p:Configuration=$(buildConfiguration)
     projects: $(buildProjects)
 
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
-    command: 'test'
+    command: test
     arguments: /p:Configuration=$(buildConfiguration)
     projects: $(testProjects)
 
@@ -30,20 +30,11 @@ steps:
     configuration: $(buildConfiguration)
     packagesToPack: $(buildProjects)
     nobuild: true
-    packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
+    packDirectory: '$(Build.ArtifactStagingDirectory)/function'
     verbosityPack: 'normal'
-
-- task: DotNetCoreCLI@2
-  displayName: Publish
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
-  inputs:
-    command: publish
-    configuration: $(buildConfiguration)
-    nobuild: true
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/app'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifacts
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/app'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/function'
