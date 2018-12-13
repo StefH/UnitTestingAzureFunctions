@@ -40,7 +40,6 @@ steps:
     command: publish
     configuration: $(buildConfiguration)
     nobuild: true
-    publishWebProjects: True
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/app'
 
 - task: PublishBuildArtifacts@1
