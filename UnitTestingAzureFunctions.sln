@@ -5,15 +5,14 @@ VisualStudioVersion = 15.0.27924.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2DE0E628-9BAC-456D-A8F3-0D9ABA6E37C7}"
 	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
 		getKeys.ps1 = getKeys.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7517544A-DFF7-4B76-BE9F-8C05D286B919}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A68B7669-A5CA-4F4B-822A-D6AB1E15E913}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpOddOrEvenHttpTrigger", "src\CSharpOddOrEven\CSharpOddOrEvenHttpTrigger.csproj", "{E9D70FAA-81F0-42B0-89A4-1912E539A576}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A68B7669-A5CA-4F4B-822A-D6AB1E15E913}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionsV2DiSample.FunctionApp", "src\FunctionsV2DiSample.FunctionApp\FunctionsV2DiSample.FunctionApp.csproj", "{0C91FF53-70BB-4B0F-9AA2-50A8FB94E2A4}"
 EndProject
@@ -21,7 +20,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpOddOrEven.Tests", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionsV2DiSample.FunctionApp.Tests", "test\FunctionsV2DiSample.FunctionApp.Tests\FunctionsV2DiSample.FunctionApp.Tests.csproj", "{F74BABA9-581F-44CB-94DE-C73511BF6CC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.GitHub", "src\Infrastructure.GitHub\Infrastructure.GitHub.csproj", "{76B9E916-659D-4201-9428-0AFC7C458602}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.GitHub", "src\Infrastructure.GitHub\Infrastructure.GitHub.csproj", "{76B9E916-659D-4201-9428-0AFC7C458602}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "src\Common\Common.csproj", "{D925A658-64FE-445A-8129-EDF21259D273}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpOddOrEvenHttpTrigger", "src\CSharpOddOrEvenHttpTrigger\CSharpOddOrEvenHttpTrigger.csproj", "{A52CCD95-C7BC-4693-AC53-2F865671B5EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +32,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E9D70FAA-81F0-42B0-89A4-1912E539A576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9D70FAA-81F0-42B0-89A4-1912E539A576}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9D70FAA-81F0-42B0-89A4-1912E539A576}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9D70FAA-81F0-42B0-89A4-1912E539A576}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C91FF53-70BB-4B0F-9AA2-50A8FB94E2A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0C91FF53-70BB-4B0F-9AA2-50A8FB94E2A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C91FF53-70BB-4B0F-9AA2-50A8FB94E2A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,16 +48,25 @@ Global
 		{76B9E916-659D-4201-9428-0AFC7C458602}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76B9E916-659D-4201-9428-0AFC7C458602}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76B9E916-659D-4201-9428-0AFC7C458602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D925A658-64FE-445A-8129-EDF21259D273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D925A658-64FE-445A-8129-EDF21259D273}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D925A658-64FE-445A-8129-EDF21259D273}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D925A658-64FE-445A-8129-EDF21259D273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A52CCD95-C7BC-4693-AC53-2F865671B5EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52CCD95-C7BC-4693-AC53-2F865671B5EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52CCD95-C7BC-4693-AC53-2F865671B5EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52CCD95-C7BC-4693-AC53-2F865671B5EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E9D70FAA-81F0-42B0-89A4-1912E539A576} = {7517544A-DFF7-4B76-BE9F-8C05D286B919}
 		{0C91FF53-70BB-4B0F-9AA2-50A8FB94E2A4} = {7517544A-DFF7-4B76-BE9F-8C05D286B919}
 		{246A609B-19DA-4C4A-B97A-25A122082F45} = {A68B7669-A5CA-4F4B-822A-D6AB1E15E913}
 		{F74BABA9-581F-44CB-94DE-C73511BF6CC0} = {A68B7669-A5CA-4F4B-822A-D6AB1E15E913}
 		{76B9E916-659D-4201-9428-0AFC7C458602} = {7517544A-DFF7-4B76-BE9F-8C05D286B919}
+		{D925A658-64FE-445A-8129-EDF21259D273} = {7517544A-DFF7-4B76-BE9F-8C05D286B919}
+		{A52CCD95-C7BC-4693-AC53-2F865671B5EC} = {7517544A-DFF7-4B76-BE9F-8C05D286B919}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {540E3805-D427-429D-B775-853492EDE6A1}

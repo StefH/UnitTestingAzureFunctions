@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CSharpOddOrEven\CSharpOddOrEvenHttpTrigger.csproj" />
+    <ProjectReference Include="..\..\src\CSharpOddOrEvenHttpTrigger\CSharpOddOrEvenHttpTrigger.csproj" />
   </ItemGroup>
 
 </Project>

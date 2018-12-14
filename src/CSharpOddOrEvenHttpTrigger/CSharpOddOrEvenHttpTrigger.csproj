@@ -10,6 +10,7 @@
     <PackageReference Include="Willezone.Azure.WebJobs.Extensions.DependencyInjection" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Infrastructure.GitHub\Infrastructure.GitHub.csproj" />
   </ItemGroup>
   <ItemGroup>
