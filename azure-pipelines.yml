@@ -23,18 +23,28 @@ steps:
     projects: $(testProjects)
 
 - task: DotNetCoreCLI@2
-  displayName: Pack
+  displayName: Publish
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
-    command: pack
-    configuration: $(buildConfiguration)
-    packagesToPack: $(buildProjects)
-    nobuild: true
-    packDirectory: '$(Build.ArtifactStagingDirectory)/function'
-    verbosityPack: 'normal'
-
+    command: publish
+    publishWebProjects: False
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+    
 - task: PublishBuildArtifacts@1
-  displayName: Publish Artifacts
+  displayName: Publish Artifact
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/function'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+
+#
+#- task: DotNetCoreCLI@2
+  #displayName: Pack
+  #condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest')) # Do not run for PullRequests
+  #inputs:
+    #command: pack
+    #configuration: $(buildConfiguration)
+    #packagesToPack: $(buildProjects)
+    #nobuild: true
+    #packDirectory: '$(Build.ArtifactStagingDirectory)/function'
+    #verbosityPack: 'normal'
